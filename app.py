@@ -10,15 +10,174 @@ TMDB_IMG = "https://image.tmdb.org/t/p/w500"
 st.set_page_config(page_title="Movie Recommender", page_icon="🎬", layout="wide")
 
 # =============================
-# STYLES (minimal modern)
+# STYLES (modern & catchy)
 # =============================
 st.markdown(
     """
 <style>
-.block-container { padding-top: 1rem; padding-bottom: 2rem; max-width: 1400px; }
-.small-muted { color:#6b7280; font-size: 0.92rem; }
-.movie-title { font-size: 0.9rem; line-height: 1.15rem; height: 2.3rem; overflow: hidden; }
-.card { border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 14px; background: rgba(255,255,255,0.7); }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* { font-family: 'Poppins', sans-serif; }
+
+.block-container { 
+    padding-top: 1rem; 
+    padding-bottom: 2rem; 
+    max-width: 1400px; 
+}
+
+.small-muted { 
+    color: #94a3b8; 
+    font-size: 0.92rem; 
+    font-weight: 400;
+}
+
+.movie-title { 
+    font-size: 0.9rem; 
+    line-height: 1.15rem; 
+    height: 2.3rem; 
+    overflow: hidden; 
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: 8px;
+}
+
+.card { 
+    border: 1px solid rgba(148, 163, 184, 0.2); 
+    border-radius: 20px; 
+    padding: 20px; 
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(249,250,251,0.95) 100%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.main-title {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+button[kind="primary"] {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+}
+
+button[kind="primary"]:hover {
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+.stButton button {
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.stButton button:hover {
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+.stSelectbox, .stTextInput {
+    border-radius: 12px;
+}
+
+.stTextInput input {
+    border-radius: 12px !important;
+    border: 2px solid rgba(148, 163, 184, 0.3) !important;
+    padding: 0.75rem !important;
+    font-size: 1rem !important;
+}
+
+.stTextInput input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    outline: none !important;
+}
+
+.stTextInput input:focus-visible {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+}
+
+.stTextInput input:invalid,
+.stTextInput input[aria-invalid="true"] {
+    border-color: rgba(148, 163, 184, 0.3) !important;
+    box-shadow: none !important;
+}
+
+.stTextInput > div {
+    border: none !important;
+}
+
+.stTextInput > div > div {
+    border: none !important;
+}
+
+.stTextInput > div > div > div {
+    border: none !important;
+}
+
+.stTextInput [data-baseweb="input"] {
+    border: 2px solid rgba(148, 163, 184, 0.3) !important;
+}
+
+.stTextInput [data-baseweb="input"]:focus {
+    border-color: #3b82f6 !important;
+}
+
+.stTextInput > label {
+    color: #e2e8f0 !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+hr {
+    margin: 2rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
+}
+
+h3 {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.stImage {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stImage:hover {
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -95,7 +254,7 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
 
             with colset[c]:
                 if poster:
-                    st.image(poster, use_column_width=True)
+                    st.image(poster, use_container_width=True)
                 else:
                     st.write("🖼️ No poster")
 
@@ -202,23 +361,31 @@ def parse_tmdb_search_to_cards(data, keyword: str, limit: int = 24):
 # SIDEBAR (clean)
 # =============================
 with st.sidebar:
-    st.markdown("## 🎬 Menu")
+    st.markdown("## 🎬 Navigation")
     if st.button("🏠 Home"):
         goto_home()
 
     st.markdown("---")
-    st.markdown("### 🏠 Home Feed (only home)")
+    st.markdown("### 📺 Browse Categories")
     home_category = st.selectbox(
-        "Category",
+        "Choose Category",
         ["trending", "popular", "top_rated", "now_playing", "upcoming"],
         index=0,
     )
-    grid_cols = st.slider("Grid columns", 4, 8, 6)
+    st.markdown("### ⚙️ Display Settings")
+    grid_cols = st.slider("Grid Columns", 4, 8, 6)
 
 # =============================
 # HEADER
 # =============================
-st.title("🎬 Movie Recommender")
+st.markdown(
+    "<h1 class='main-title'>🎬 Movie Recommender</h1>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    "<div class='subtitle'>✨ Discover your next favorite movie with AI-powered recommendations</div>",
+    unsafe_allow_html=True,
+)
 st.markdown(
     "<div class='small-muted'>Type keyword → dropdown suggestions + matching results → open → details + recommendations</div>",
     unsafe_allow_html=True,
@@ -230,12 +397,35 @@ st.divider()
 # ==========================================================
 if st.session_state.view == "home":
     typed = st.text_input(
-        "Search by movie title (keyword)", placeholder="Type: avenger, batman, love..."
+        "🔍 Search Movies", placeholder="Type movie name: Avengers, Batman, Inception...", label_visibility="visible"
     )
+
+    # Real-time autocomplete suggestions
+    if typed.strip() and len(typed.strip()) >= 2:
+        data, err = api_get_json("/tmdb/search", params={"query": typed.strip()})
+        
+        if not err and data:
+            suggestions, cards = parse_tmdb_search_to_cards(
+                data, typed.strip(), limit=24
+            )
+            
+            if suggestions:
+                labels = ["-- Select a movie to view details --"] + [s[0] for s in suggestions]
+                selected = st.selectbox(
+                    "💡 Suggestions:", 
+                    labels, 
+                    index=0, 
+                    key=f"autocomplete_{typed}",
+                    label_visibility="visible"
+                )
+                
+                if selected != "-- Select a movie to view details --":
+                    label_to_id = {s[0]: s[1] for s in suggestions}
+                    goto_details(label_to_id[selected])
 
     st.divider()
 
-    # SEARCH MODE (Autocomplete + word-match results)
+    # SEARCH MODE (Show results when user has typed)
     if typed.strip():
         if len(typed.strip()) < 2:
             st.caption("Type at least 2 characters for suggestions.")
@@ -249,19 +439,13 @@ if st.session_state.view == "home":
                     data, typed.strip(), limit=24
                 )
 
-                # Dropdown
-                if suggestions:
-                    labels = ["-- Select a movie --"] + [s[0] for s in suggestions]
-                    selected = st.selectbox("Suggestions", labels, index=0)
-
-                    if selected != "-- Select a movie --":
-                        # map label -> id
-                        label_to_id = {s[0]: s[1] for s in suggestions}
-                        goto_details(label_to_id[selected])
+                # Show results directly
+                if cards:
+                    st.markdown(f"### 🎬 Found {len(cards)} Results")
                 else:
-                    st.info("No suggestions found. Try another keyword.")
+                    st.info("No movies found. Try another keyword.")
 
-                st.markdown("### Results")
+                st.markdown("")
                 poster_grid(cards, cols=grid_cols, key_prefix="search_results")
 
         st.stop()
@@ -307,15 +491,12 @@ elif st.session_state.view == "details":
     left, right = st.columns([1, 2.4], gap="large")
 
     with left:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
         if data.get("poster_url"):
-            st.image(data["poster_url"], use_column_width=True)
+            st.image(data["poster_url"], use_container_width=True)
         else:
             st.write("🖼️ No poster")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with right:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown(f"## {data.get('title','')}")
         release = data.get("release_date") or "-"
         genres = ", ".join([g["name"] for g in data.get("genres", [])]) or "-"
@@ -328,11 +509,10 @@ elif st.session_state.view == "details":
         st.markdown("---")
         st.markdown("### Overview")
         st.write(data.get("overview") or "No overview available.")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     if data.get("backdrop_url"):
         st.markdown("#### Backdrop")
-        st.image(data["backdrop_url"], use_column_width=True)
+        st.image(data["backdrop_url"], use_container_width=True)
 
     st.divider()
     st.markdown("### ✅ Recommendations")
@@ -346,7 +526,7 @@ elif st.session_state.view == "details":
         )
 
         if not err2 and bundle:
-            st.markdown("#### 🔎 Similar Movies (TF-IDF)")
+            st.markdown("#### 🔎 Similar Movies (TF-IDF Method)")
             poster_grid(
                 to_cards_from_tfidf_items(bundle.get("tfidf_recommendations")),
                 cols=grid_cols,
