@@ -7,7 +7,7 @@
 
 > **Discover your next favorite movie with AI-powered recommendations**
 
-[🚀 **Live Demo**](https://movie-recommendation-pro.streamlit.app/) | [📖 Documentation](#features) | [💻 Tech Stack](#tech-stack)
+[🚀 **Live Demo**](https://movie-recommendation-pro.streamlit.app/)
 
 ---
 
