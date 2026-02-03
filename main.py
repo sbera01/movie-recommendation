@@ -311,7 +311,7 @@ def load_pickles():
 # =========================
 # ROUTES
 # =========================
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "ok"}
 
